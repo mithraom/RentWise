@@ -1,0 +1,27 @@
+# Render Blueprint: New > Blueprint > pick this repo. Fill the "sync: false" values in the dashboard.
+services:
+  - type: web
+    name: rentwise-apartment-service
+    runtime: python
+    rootDir: apartment-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /
+    envVars:
+      - { key: PYTHON_VERSION, value: 3.12.4 }
+      - { key: MONGO_URI, sync: false }
+      - { key: DB_NAME, value: rentwise_db }
+      - { key: ALLOWED_ORIGINS, sync: false }
+  - type: web
+    name: rentwise-advisor-service
+    runtime: python
+    rootDir: rental-advisor-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /
+    envVars:
+      - { key: PYTHON_VERSION, value: 3.12.4 }
+      - { key: APARTMENT_SERVICE_URL, sync: false }   # https://rentwise-apartment-service.onrender.com
+      - { key: MONGO_URI, sync: false }                # same Atlas cluster is fine
+      - { key: DB_NAME, value: rentwise_advisor_db }
+      - { key: ALLOWED_ORIGINS, sync: false }

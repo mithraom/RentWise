@@ -1,0 +1,28 @@
+# Run the whole system locally:  docker compose up --build
+services:
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: [mongo-data:/data/db]
+  apartment-service:
+    build: ./apartment-service
+    environment: { MONGO_URI: "mongodb://mongo:27017", DB_NAME: rentwise_db, ALLOWED_ORIGINS: "http://localhost:5173" }
+    ports: ["5001:5001"]
+    depends_on: [mongo]
+  rental-advisor-service:
+    build: ./rental-advisor-service
+    environment:
+      APARTMENT_SERVICE_URL: http://apartment-service:5001
+      MONGO_URI: mongodb://mongo:27017
+      DB_NAME: rentwise_advisor_db
+      ALLOWED_ORIGINS: "http://localhost:5173"
+    ports: ["5002:5002"]
+    depends_on: [apartment-service, mongo]
+  frontend:
+    build:
+      context: ./frontend
+      args: { VITE_APARTMENT_API_URL: "http://localhost:5001", VITE_ADVISOR_API_URL: "http://localhost:5002" }
+    ports: ["5173:80"]
+    depends_on: [apartment-service, rental-advisor-service]
+volumes:
+  mongo-data:

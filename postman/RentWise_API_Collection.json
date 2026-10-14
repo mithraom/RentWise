@@ -1,0 +1,1280 @@
+{
+  "info": {
+    "name": "RentWise API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Run 'POST Create Apartment' first - it stores apartmentId automatically for the other requests."
+  },
+  "variable": [
+    {
+      "key": "apartmentUrl",
+      "value": "http://localhost:5001"
+    },
+    {
+      "key": "advisorUrl",
+      "value": "http://localhost:5002"
+    },
+    {
+      "key": "apartmentId",
+      "value": ""
+    },
+    {
+      "key": "apartmentId2",
+      "value": ""
+    },
+    {
+      "key": "apartmentId3",
+      "value": ""
+    },
+    {
+      "key": "savedSearchId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Apartment Service",
+      "item": [
+        {
+          "name": "POST Create Apartment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test Heights 2BHK\",\n  \"description\": \"Spacious apartment near IT park\",\n  \"ownerName\": \"Test Owner\",\n  \"location\": \"RS Puram\",\n  \"city\": \"Coimbatore\",\n  \"rent\": 19000,\n  \"securityDeposit\": 57000,\n  \"bedrooms\": 2,\n  \"bathrooms\": 2,\n  \"areaSqFt\": 1050,\n  \"furnishing\": \"Semi-Furnished\",\n  \"availableFrom\": \"2026-11-01\",\n  \"amenities\": [\n    \"WiFi\",\n    \"Parking\",\n    \"Gym\"\n  ],\n  \"parking\": true,\n  \"petFriendly\": true,\n  \"commuteDistance\": 4,\n  \"imageUrl\": \"https://picsum.photos/640/420\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Example 201",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Test Heights 2BHK\",\n  \"description\": \"Spacious apartment near IT park\",\n  \"ownerName\": \"Test Owner\",\n  \"location\": \"RS Puram\",\n  \"city\": \"Coimbatore\",\n  \"rent\": 19000,\n  \"securityDeposit\": 57000,\n  \"bedrooms\": 2,\n  \"bathrooms\": 2,\n  \"areaSqFt\": 1050,\n  \"furnishing\": \"Semi-Furnished\",\n  \"availableFrom\": \"2026-11-01\",\n  \"amenities\": [\n    \"WiFi\",\n    \"Parking\",\n    \"Gym\"\n  ],\n  \"parking\": true,\n  \"petFriendly\": true,\n  \"commuteDistance\": 4,\n  \"imageUrl\": \"https://picsum.photos/640/420\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"_id\": \"665f1c2e9b1e8a0012345678\",\n    \"title\": \"Test Heights 2BHK\",\n    \"description\": \"Spacious apartment near IT park\",\n    \"ownerName\": \"Test Owner\",\n    \"location\": \"RS Puram\",\n    \"city\": \"Coimbatore\",\n    \"rent\": 19000,\n    \"securityDeposit\": 57000,\n    \"bedrooms\": 2,\n    \"bathrooms\": 2,\n    \"areaSqFt\": 1050,\n    \"furnishing\": \"Semi-Furnished\",\n    \"availableFrom\": \"2026-11-01\",\n    \"amenities\": [\n      \"WiFi\",\n      \"Parking\",\n      \"Gym\"\n    ],\n    \"parking\": true,\n    \"petFriendly\": true,\n    \"commuteDistance\": 4,\n    \"imageUrl\": \"https://picsum.photos/640/420\",\n    \"createdAt\": \"2026-10-04T10:00:00+00:00\"\n  },\n  \"message\": \"Apartment created\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data._id) pm.collectionVariables.set('apartmentId', j.data._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST Create Apartment - invalid (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Only title\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Example 400",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Only title\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Invalid request\",\n  \"details\": [\n    \"location is required\",\n    \"city is required\"\n  ]\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data._id) pm.collectionVariables.set('apartmentId', j.data._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET All Apartments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"count\": 20,\n  \"data\": [\n    \"...\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Apartment by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments/{{apartmentId}}",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments",
+                "{{apartmentId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments/{{apartmentId}}",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments",
+                    "{{apartmentId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"_id\": \"665f1c2e9b1e8a0012345678\",\n    \"title\": \"Test Heights 2BHK\",\n    \"description\": \"Spacious apartment near IT park\",\n    \"ownerName\": \"Test Owner\",\n    \"location\": \"RS Puram\",\n    \"city\": \"Coimbatore\",\n    \"rent\": 19000,\n    \"securityDeposit\": 57000,\n    \"bedrooms\": 2,\n    \"bathrooms\": 2,\n    \"areaSqFt\": 1050,\n    \"furnishing\": \"Semi-Furnished\",\n    \"availableFrom\": \"2026-11-01\",\n    \"amenities\": [\n      \"WiFi\",\n      \"Parking\",\n      \"Gym\"\n    ],\n    \"parking\": true,\n    \"petFriendly\": true,\n    \"commuteDistance\": 4,\n    \"imageUrl\": \"https://picsum.photos/640/420\",\n    \"createdAt\": \"2026-10-04T10:00:00+00:00\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Apartment by ID - not found (404)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments/000000000000000000000000",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments",
+                "000000000000000000000000"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 404",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments/000000000000000000000000",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments",
+                    "000000000000000000000000"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Apartment not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "PUT Update Apartment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments/{{apartmentId}}",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments",
+                "{{apartmentId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rent\": 20500,\n  \"petFriendly\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments/{{apartmentId}}",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments",
+                    "{{apartmentId}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rent\": 20500,\n  \"petFriendly\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Apartment updated\",\n  \"data\": {\n    \"rent\": 20500\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Search Apartments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments/search?city=Coimbatore&minRent=10000&maxRent=20000&bedrooms=2&furnishing=Semi-Furnished&petFriendly=true",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Coimbatore"
+                },
+                {
+                  "key": "minRent",
+                  "value": "10000"
+                },
+                {
+                  "key": "maxRent",
+                  "value": "20000"
+                },
+                {
+                  "key": "bedrooms",
+                  "value": "2"
+                },
+                {
+                  "key": "furnishing",
+                  "value": "Semi-Furnished"
+                },
+                {
+                  "key": "petFriendly",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments/search?city=Coimbatore&minRent=10000&maxRent=20000&bedrooms=2&furnishing=Semi-Furnished&petFriendly=true",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "Coimbatore"
+                    },
+                    {
+                      "key": "minRent",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "maxRent",
+                      "value": "20000"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "2"
+                    },
+                    {
+                      "key": "furnishing",
+                      "value": "Semi-Furnished"
+                    },
+                    {
+                      "key": "petFriendly",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"count\": 2,\n  \"data\": [\n    \"...\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "DELETE Apartment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments/{{apartmentId}}",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments",
+                "{{apartmentId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apartmentUrl}}/api/apartments/{{apartmentId}}",
+                  "host": [
+                    "{{apartmentUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "apartments",
+                    "{{apartmentId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Apartment deleted\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Search + sort (text search)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments/search?q=wifi&sort=rentAsc",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments",
+                "search"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200 OK',()=>pm.response.to.have.status(200));",
+                  "pm.test('sorted by rent',()=>{const r=pm.response.json().data.map(a=>a.rent);pm.expect(r).to.eql([...r].sort((a,b)=>a-b));});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET Search - invalid sort (400)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/api/apartments?sort=bogus",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "api",
+                "apartments"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('400',()=>pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET Health (DB ping)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apartmentUrl}}/health",
+              "host": [
+                "{{apartmentUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('database connected',()=>pm.expect(pm.response.json().database).to.eql('connected'));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rental Advisor Service",
+      "item": [
+        {
+          "name": "POST Recommendations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/recommendations",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendations"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"budget\": 25000,\n  \"preferredCity\": \"Coimbatore\",\n  \"bedrooms\": 2,\n  \"furnishing\": \"Semi-Furnished\",\n  \"requiredAmenities\": [\n    \"Parking\",\n    \"WiFi\"\n  ],\n  \"maxCommuteDistance\": 8,\n  \"petFriendly\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{advisorUrl}}/api/recommendations",
+                  "host": [
+                    "{{advisorUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "recommendations"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"budget\": 25000,\n  \"preferredCity\": \"Coimbatore\",\n  \"bedrooms\": 2,\n  \"furnishing\": \"Semi-Furnished\",\n  \"requiredAmenities\": [\n    \"Parking\",\n    \"WiFi\"\n  ],\n  \"maxCommuteDistance\": 8,\n  \"petFriendly\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"count\": 6,\n  \"totalEvaluated\": 20,\n  \"preferences\": {\n    \"budget\": 25000,\n    \"preferredCity\": \"Coimbatore\",\n    \"bedrooms\": 2,\n    \"furnishing\": \"Semi-Furnished\",\n    \"requiredAmenities\": [\n      \"Parking\",\n      \"WiFi\"\n    ],\n    \"maxCommuteDistance\": 8,\n    \"petFriendly\": true\n  },\n  \"data\": [\n    {\n      \"apartment\": {\n        \"_id\": \"665f...\",\n        \"title\": \"Green Valley 2BHK\",\n        \"rent\": 18000,\n        \"city\": \"Coimbatore\"\n      },\n      \"recommendationScore\": 100,\n      \"matchLabel\": \"Excellent Match\",\n      \"scoreBreakdown\": {\n        \"budget\": 30,\n        \"location\": 20,\n        \"bedrooms\": 15,\n        \"amenities\": 15.0,\n        \"furnishing\": 10,\n        \"commute\": 5,\n        \"petFriendly\": 5\n      },\n      \"maxScores\": {\n        \"budget\": 30,\n        \"location\": 20,\n        \"bedrooms\": 15,\n        \"amenities\": 15,\n        \"furnishing\": 10,\n        \"commute\": 5,\n        \"petFriendly\": 5\n      },\n      \"matchedAmenities\": [\n        \"Parking\",\n        \"WiFi\"\n      ],\n      \"missingAmenities\": [],\n      \"affordabilityStatus\": \"Well within budget\",\n      \"locationMatch\": true,\n      \"reason\": \"This apartment fits your budget, is in your preferred location, matches your bedroom requirement, provides all requested amenities, has a short commute (5 km).\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST Recommendations - missing budget (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/recommendations",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendations"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bedrooms\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Example 400",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{advisorUrl}}/api/recommendations",
+                  "host": [
+                    "{{advisorUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "recommendations"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bedrooms\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Invalid request\",\n  \"details\": [\n    \"budget is required\"\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST Compare (copy 2-3 real ids into the body)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/compare",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "compare"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apartmentIds\": [\n    \"{{apartmentId}}\",\n    \"{{apartmentId2}}\",\n    \"{{apartmentId3}}\"\n  ],\n  \"preferences\": {\n    \"budget\": 25000,\n    \"preferredCity\": \"Coimbatore\",\n    \"bedrooms\": 2,\n    \"furnishing\": \"Semi-Furnished\",\n    \"requiredAmenities\": [\n      \"Parking\",\n      \"WiFi\"\n    ],\n    \"maxCommuteDistance\": 8,\n    \"petFriendly\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{advisorUrl}}/api/compare",
+                  "host": [
+                    "{{advisorUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "compare"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apartmentIds\": [\n    \"{{apartmentId}}\",\n    \"{{apartmentId2}}\",\n    \"{{apartmentId3}}\"\n  ],\n  \"preferences\": {\n    \"budget\": 25000,\n    \"preferredCity\": \"Coimbatore\",\n    \"bedrooms\": 2,\n    \"furnishing\": \"Semi-Furnished\",\n    \"requiredAmenities\": [\n      \"Parking\",\n      \"WiFi\"\n    ],\n    \"maxCommuteDistance\": 8,\n    \"petFriendly\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"scoreType\": \"match\",\n  \"data\": [\n    \"...\"\n  ],\n  \"highlights\": {\n    \"rent\": \"<id>\",\n    \"score\": \"<id>\"\n  },\n  \"bestValueId\": \"<id>\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Best Value",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/recommendations/best-value",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendations",
+                "best-value"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{advisorUrl}}/api/recommendations/best-value",
+                  "host": [
+                    "{{advisorUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "recommendations",
+                    "best-value"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"apartment\": {\n      \"title\": \"Race Course Luxury 3BHK\"\n    },\n    \"valueScore\": 78.4,\n    \"reason\": \"...\",\n    \"runnersUp\": []\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/recommendations/statistics",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendations",
+                "statistics"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 200",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{advisorUrl}}/api/recommendations/statistics",
+                  "host": [
+                    "{{advisorUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "recommendations",
+                    "statistics"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"totalApartments\": 20,\n    \"availableApartments\": 13,\n    \"averageRent\": 25175,\n    \"minimumRent\": 9500,\n    \"maximumRent\": 48000,\n    \"averageArea\": 1132,\n    \"averageRentByBedrooms\": [\n      {\n        \"bedrooms\": 1,\n        \"averageRent\": 17300,\n        \"count\": 5\n      }\n    ],\n    \"mostCommonAmenities\": [\n      {\n        \"amenity\": \"WiFi\",\n        \"count\": 17\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Statistics - Apartment Service down (503)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/recommendations/statistics",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "recommendations",
+                "statistics"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example 503",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{advisorUrl}}/api/recommendations/statistics",
+                  "host": [
+                    "{{advisorUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "recommendations",
+                    "statistics"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"Apartment Service is unavailable. Please try again later.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Status (inter-service link)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/status",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "status"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('advisor reaches apartment service',()=>pm.expect(pm.response.json().apartmentService.reachable).to.be.true);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST Save Search",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/saved-searches",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "saved-searches"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Coimbatore 2BHK\",\n  \"preferences\": {\n    \"budget\": 25000,\n    \"preferredCity\": \"Coimbatore\",\n    \"bedrooms\": 2,\n    \"requiredAmenities\": [\n      \"Parking\",\n      \"WiFi\"\n    ]\n  }\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201',()=>pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('savedSearchId',pm.response.json().data._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET Saved Searches",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/saved-searches",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "saved-searches"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200',()=>pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT Rename Saved Search",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/saved-searches/{{savedSearchId}}",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "saved-searches",
+                "{{savedSearchId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Renamed search\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE Saved Search",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{advisorUrl}}/api/saved-searches/{{savedSearchId}}",
+              "host": [
+                "{{advisorUrl}}"
+              ],
+              "path": [
+                "api",
+                "saved-searches",
+                "{{savedSearchId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200',()=>pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
